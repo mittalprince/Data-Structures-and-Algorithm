@@ -16,7 +16,17 @@ typedef long long ll;
 #define MOD 1000000007
 #define MAX 100005
  
-ll divisorProduct[MAX];
+/*
+    N= (p^a)(q^b)(r^c)
+    Where, p, q and r are prime factors of the number n.
+    a, b and c are non-negative powers/ exponents
+
+    1. Number of factors of N = (a+1)(b+1)(c+1)
+    2. Product of factors of N = N^(No. of factors/2)
+    3. Sum of factors: ( p^0+p^1+...+p^a) ( q^0+ q^1+....+q^b) (r^0+r^1+...+r^c)/ (p^a-1)(q^b-1)(r^c-1)
+*/ 
+
+ll divisorProduct[MAX]; // count no of factors of a number
  
 ll fstPow(ll a, ll b){
     ll ans=1;
@@ -49,7 +59,7 @@ void sieve(){
                     ct++;
                     val /= i;
                 }
-                divisorProduct[j] *= (ct+1); // +1 as 1 is always inlcludes in this (15 -> (3)(5) -> [1,3]*[1,5]-> (1,3,5,15));
+                divisorProduct[j] *= (ct+1);
             }
         }
     }
