@@ -1,6 +1,6 @@
+// https://leetcode.com/problems/string-without-aaa-or-bbb/
 #include<iostream>
 #include<vector>
-#include<stack>
 using namespace std;
 typedef long long ll;
 #define ip(arr, n) for(int i=0; i<n; i++) cin>>arr[i];
@@ -12,35 +12,27 @@ typedef long long ll;
 #define INF 1e16
 #define MOD 1000000007
 
-void solve(){
-    int n,m;
-    cin>>n>>m;
-
-    string s;
-    cin>>s;
-
-    vector<int>t(n, n);
-    stack<int>S;
-
-    for(int i=n-1; i>=0; i--){
-        while(!S.empty() and s[i]>=s[S.top()])S.pop();
-        if(!S.empty())t[i] = S.top();
-        S.push(i);
-    }
-
+string strWithout3a3b(int a, int b) {
     string ans="";
-    for(int i=0; i<n;){
-        if(t[i]-i<=m){
-            m -= (t[i]-i);
-            i = t[i];
+
+    while(a>0 or b>0){
+        if(a<b){
+            if(0<b--)ans+='b';
+            if(0<b--)ans+='b';
+            if(0<a--)ans+='a';
+        }
+        else if(a>b){
+            if(0<a--)ans+='a';
+            if(0<a--)ans+='a';
+            if(0<b--)ans+='b';
         }
         else{
-            ans += s[i++];
+            if(0<b--)ans+='b';
+            if(0<a--)ans+='a';
         }
     }
-    cout<<ans<<endl;
+    return ans;
 }
-
 int main(){
 
     #ifndef ONLINE_JUDGE
@@ -48,10 +40,9 @@ int main(){
     freopen("output.txt","w",stdout);
     #endif
 
-    int t;
-    cin>>t;
-    while(t--){
-        solve();
-    }
+    int n;
+    cin>>n;
+    vector<int> arr(n);
+    
     return 0;
 }

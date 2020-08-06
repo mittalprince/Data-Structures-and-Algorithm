@@ -1,6 +1,6 @@
+// https://leetcode.com/problems/string-compression/
 #include<iostream>
 #include<vector>
-#include<stack>
 using namespace std;
 typedef long long ll;
 #define ip(arr, n) for(int i=0; i<n; i++) cin>>arr[i];
@@ -12,33 +12,26 @@ typedef long long ll;
 #define INF 1e16
 #define MOD 1000000007
 
-void solve(){
-    int n,m;
-    cin>>n>>m;
+int compress(vector<char>& chars) {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
 
-    string s;
-    cin>>s;
+    int k=0;
+    int i=1, ct=0;
+    int n=chars.size();
 
-    vector<int>t(n, n);
-    stack<int>S;
-
-    for(int i=n-1; i>=0; i--){
-        while(!S.empty() and s[i]>=s[S.top()])S.pop();
-        if(!S.empty())t[i] = S.top();
-        S.push(i);
+    while(i<=n){
+        ct=1;
+        while(i<n and chars[i] == chars[i-1])i++, ct++;
+        chars[k++]=chars[i-1];
+        if(ct>1){
+            string val = to_string(ct);
+            for(char j: val)chars[k++]=j;
+        }
+        i++;
     }
 
-    string ans="";
-    for(int i=0; i<n;){
-        if(t[i]-i<=m){
-            m -= (t[i]-i);
-            i = t[i];
-        }
-        else{
-            ans += s[i++];
-        }
-    }
-    cout<<ans<<endl;
+    return k;
 }
 
 int main(){
@@ -48,10 +41,9 @@ int main(){
     freopen("output.txt","w",stdout);
     #endif
 
-    int t;
-    cin>>t;
-    while(t--){
-        solve();
-    }
+    int n;
+    cin>>n;
+    vector<int> arr(n);
+    
     return 0;
 }

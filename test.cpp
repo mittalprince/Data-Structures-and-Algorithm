@@ -1,9 +1,7 @@
+// https://codeforces.com/contest/1399/problem/D
 #include<iostream>
 #include<vector>
-#include<cstring>
-#include<climits>
-#include<bitset>
-#include<algorithm>
+#include<queue>
 using namespace std;
 typedef long long ll;
 #define ip(arr, n) for(int i=0; i<n; i++) cin>>arr[i];
@@ -15,38 +13,45 @@ typedef long long ll;
 #define INF 1e16
 #define MOD 1000000007
 
-ll compare(ll a,ll b){
-	string A=bitset<32>(a).to_string();
-	string B=bitset<32>(b).to_string();
-
-	ll i=0;
-	while(i<33 && A[i]=='0')i++;
-	A.erase(0,i);
-
-	i=0;
-	while(i<33 && B[i]=='0')i++;
-	B.erase(0,i);
-
-	string ab=A+B;
-	string ba=B+A;
-
-	ll AB=stoll(ab, 0, 2);
-	ll BA=stoll(ba, 0, 2);
-
-	return abs(AB-BA);
-}
-
 void solve(){
     int n;
     cin>>n;
-    vector<ll>arr(n);
-    ip(arr, n);
-    
-    sort(arr.rbegin(), arr.rend());
-    ll a=arr[0];
-    ll b=arr[n-1];
+    string s;
+    cin>>s;
 
-    cout<<compare(a,b)<<endl;
+    vector<int>ans(n);
+    queue<int>one, zero;
+    int ct=1;
+    for(int i=0; i<n; i++){
+        if(s[i]=='0'){
+            if(zero.empty()){
+                ans[i] = ct;
+                one.push(ct++);
+            }
+            else{
+                ans[i] = zero.front();
+                one.push(zero.front());
+                zero.pop();
+            }
+        }
+        else{
+            if(one.empty()){
+                ans[i]=ct;
+                zero.push(ct++);
+            }
+            else{
+                ans[i] = one.front();
+                zero.push(one.front());
+                one.pop();
+            }
+        }
+    }
+
+    cout<<ct-1<<endl;
+    for(int i: ans){
+        cout<<i<<" ";
+    }
+    cout<<endl;
 }
 
 int main(){
