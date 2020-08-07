@@ -1,7 +1,9 @@
-// https://codeforces.com/contest/1399/problem/D
 #include<iostream>
 #include<vector>
 #include<queue>
+#include<unordered_map>
+#include<climits>
+#include<cmath>
 using namespace std;
 typedef long long ll;
 #define ip(arr, n) for(int i=0; i<n; i++) cin>>arr[i];
@@ -13,45 +15,74 @@ typedef long long ll;
 #define INF 1e16
 #define MOD 1000000007
 
+unordered_map<ll, ll>m;
+ll n;
+
+ll canPlace(){
+    priority_queue<pair<ll, ll> >pq;
+    for(auto it: m){
+        pq.push({it.second, it.first});
+    }
+
+    unordered_map<ll, ll>t;
+    ll i=0;
+
+    ll ans=INT_MAX;
+
+    while(!pq.empty()){
+        ll size = pq.size();
+        priority_queue<pair<ll, ll> >q;
+        for(ll j=0; j<size; j++){
+            auto top = pq.top();
+            pq.pop();
+            // cout<<top.second<<" "<<top.first<<endl;
+            if(t.count(top.second)){
+                // cout<<top.first<<" "<<i<<" "<<t[top.first]<<endl;
+                ans = min(ans, i-t[top.second]-1);
+            }
+            t[top.second] = i;
+            if(top.first>1){
+                q.push({top.first-1, top.second});
+            }
+            i++;
+        }
+        pq=q;
+    }
+
+    if(ans == INT_MAX){
+        ans = n-1;
+    }
+    return ans;
+}
+
 void solve(){
-    int n;
     cin>>n;
-    string s;
-    cin>>s;
+    vector<ll>arr(n);
+    ip(arr, n);
 
-    vector<int>ans(n);
-    queue<int>one, zero;
-    int ct=1;
-    for(int i=0; i<n; i++){
-        if(s[i]=='0'){
-            if(zero.empty()){
-                ans[i] = ct;
-                one.push(ct++);
-            }
-            else{
-                ans[i] = zero.front();
-                one.push(zero.front());
-                zero.pop();
-            }
+    m.clear();
+    
+    for(ll i: arr){
+        m[i]++;
+    }
+    if(m.size()==1){
+        cout<<"0\n";
+        return;
+    }
+
+    for(auto it: m){
+        ll val = ceil((double)n/2);
+        if(val<it.second){
+            cout<<"0\n";
+            return;
         }
-        else{
-            if(one.empty()){
-                ans[i]=ct;
-                zero.push(ct++);
-            }
-            else{
-                ans[i] = one.front();
-                zero.push(one.front());
-                one.pop();
-            }
+        if(val == it.second){
+            cout<<"1\n";
+            return;
         }
     }
 
-    cout<<ct-1<<endl;
-    for(int i: ans){
-        cout<<i<<" ";
-    }
-    cout<<endl;
+    cout<<canPlace()<<endl;
 }
 
 int main(){

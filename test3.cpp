@@ -10,60 +10,40 @@ typedef long long ll;
 #define inf 1e9
 #define INF 1e16
 #define MOD 1000000007
+#define MAX 100005
 
-/*
-In first step I perform operation on A string
-First I make string A into a string that contain only one type of char only
+vector<pair<ll, ll> >adj[MAX];
+vector<ll>leafNodeCount(MAX);
+vector<ll>edgeW(MAX);
+ll n, S;
 
-Ex: 010101
-iteration 1: 0
-          2: 11
-          3: 000
-          4: 1111
-          5: 00000
-          6: 111111
+ll dfs(ll src, ll parent){
+    // find one leaf node (Base case)
+    if(adj[src].size()==1 and adj[src][0].first == parent)return 1;
+    ll ans=0;
 
-Now I perform operation on B string, means check if ith pos match with B[i] or not
-if not then reverrse the whole string berfore it, so insert (i+1)  
-*/
+    for(pair<ll,ll>child: adj[src]){
+        if(child.first == parent)continue;
+        leafNodeCount[child.first] = dfs(child.first, src);
+        edgeW[child.first] = child.second;
+        ans += leafNodeCount[child.first];
+    }
+    return ans;
+}
+
+ll diff(ll i){
+    return (edgeW[i]*leafNodeCount[i] - (edgeW[i]/2)*leafNodeCount[i]);
+}
+
 void solve(){
-    int n;
-    cin>>n;
-    string a,b;
-    cin>>a>>b;
-
-    vector<ll>ans;
-    char curr=a[0];
+    cin>>n>>S;
 
     for(int i=0; i<n; i++){
-        if(a[i] == curr)continue;
-        else{
-            ans.push_back(i);
-            if(curr == '0')curr='1';
-            else curr='0';
-            // cout<<i<<" "<<curr<<endl;
-        }
+        ll u,v,w;
+        cin>>u>>v>>w;
+        adj[u].push_back({v,w});
+        adj[v].push_back({u,w});
     }
-    // for(int i: ans){
-    //     cout<<i<<" ";
-    // }
-    // cout<<endl;
-    for(int i=n-1; i>=0; i--){
-        if(b[i] == curr)continue;
-        else{
-            ans.push_back(i+1);
-            if(curr == '0')curr='1';
-            else curr='0';
-        }
-    }
-    
-    cout<<ans.size()<<" ";
-    if(ans.size()){
-        for(int i: ans){
-            cout<<i<<" ";
-        }
-    }
-    cout<<endl;
 }
 
 int main(){
