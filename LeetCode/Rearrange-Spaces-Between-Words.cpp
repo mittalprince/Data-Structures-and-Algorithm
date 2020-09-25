@@ -1,6 +1,7 @@
 // https://leetcode.com/problems/rearrange-spaces-between-words/
 #include<iostream>
 #include<vector>
+#include<sstream>
 using namespace std;
 typedef long long ll;
 #define ip(arr, n) for(int i=0; i<n; i++) cin>>arr[i];
