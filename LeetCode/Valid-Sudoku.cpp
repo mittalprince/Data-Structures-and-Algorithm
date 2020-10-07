@@ -1,6 +1,7 @@
 // https: //leetcode.com/problems/valid-sudoku/
 #include<iostream>
 #include<vector>
+#include<cmath>
 using namespace std;
 typedef long long ll;
 #define ip(arr, n) for(int i=0; i<n; i++) cin>>arr[i];
