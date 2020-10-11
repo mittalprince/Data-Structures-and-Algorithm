@@ -1,4 +1,4 @@
-// https://leetcode.com/problems/smallest-subsequence-of-distinct-characters/
+// https://leetcode.com/problems/remove-duplicate-letters/
 #include<iostream>
 #include<vector>
 #include<stack>
@@ -13,11 +13,15 @@ typedef long long ll;
 #define INF 1e16
 #define MOD 1000000007
 
-string smallestSubsequence(string text) {
+string removeDuplicateLetters(string text) {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
     int lastIndex[26];
     for(int i=0; i<text.length(); i++){
         lastIndex[text[i]-'a']=i;
     }
+
     stack<char>s;
     bool isPresent[26]={0};
 
@@ -34,9 +38,10 @@ string smallestSubsequence(string text) {
 
     string ans="";
     while(!s.empty()){
-        ans = s.top()+ans;
+        ans += s.top();
         s.pop();
     }
+    std::reverse(ans.begin(), ans.end());
     return ans;
 }
 
