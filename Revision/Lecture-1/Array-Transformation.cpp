@@ -1,3 +1,4 @@
+// https://massivealgorithms.blogspot.com/2020/01/leetcode-1243-array-transformation.html
 #include<iostream>
 #include<vector>
 using namespace std;

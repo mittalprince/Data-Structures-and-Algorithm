@@ -1,3 +1,4 @@
+// https://leetcode.com/problems/find-in-mountain-array/
 #include<iostream>
 #include<vector>
 using namespace std;
@@ -6,6 +7,12 @@ typedef long long ll;
 #define op(arr, n) for(int i=0; i<n; i++) cout<<arr[i]<<" ";
 #define fstIO ios_base::sync_with_stdio(false); cin.tie(NULL);
 #define MOD 1000000007
+
+class MountainArray{
+    public : 
+    int get(int index);
+    int length();
+};
 
 int pivot(MountainArray &mountainArr, int n){
     int start=0, end=n-1;

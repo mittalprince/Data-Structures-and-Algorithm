@@ -1,3 +1,4 @@
+// https://leetcode.com/problems/beautiful-array/
 #include<iostream>
 #include<vector>
 using namespace std;

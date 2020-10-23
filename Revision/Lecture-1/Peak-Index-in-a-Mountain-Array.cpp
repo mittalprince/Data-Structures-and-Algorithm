@@ -1,3 +1,4 @@
+//https://leetcode.com/problems/peak-index-in-a-mountain-array/
 #include<iostream>
 #include<vector>
 using namespace std;
@@ -7,15 +8,16 @@ typedef long long ll;
 #define fstIO ios_base::sync_with_stdio(false); cin.tie(NULL);
 #define MOD 1000000007
 
-peakIndexInMountainArray(vector<int>& A) {
-    int s=0, e=A.size()-1;
-
-    while(s<=e){
+int peakIndexInMountainArray(vector<int>& A) {
+    int n=A.size();
+    int s=0, e=n-1;
+    
+    while(s<e){
         int mid = (s+e)/2;
-
-        if(A[mid]>A[mid-1] && A[mid]>A[mid+1])return mid;
-        if(A[mid]<A[mid+1])s=mid+1;
-        else e=mid-1;
+        if(A[mid]<A[mid+1]){
+            s=mid+1;
+        }
+        else e=mid;
     }
     return s;
 }
