@@ -25,6 +25,7 @@ vector<string> summaryRanges(vector<int>& nums) {
     }
     return res;
 }
+
 int main(){
 
     #ifndef ONLINE_JUDGE
