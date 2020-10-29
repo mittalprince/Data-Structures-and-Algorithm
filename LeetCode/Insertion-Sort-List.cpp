@@ -26,8 +26,26 @@ ListNode *insertionSort(ListNode *sorted_head, ListNode *new_node){
 
     ListNode *temp = sorted_head;
     while(temp->next and temp->next->val<new_node->val){
-
+        temp = temp->next;
     }
+
+    new_node->next = temp->next;
+    temp->next = new_node;
+    return sorted_head;
+}
+
+ListNode* insertionSortList(ListNode *head){
+    if(head==NULL or head->next ==NULL)return head;
+
+    ListNode *sorted_head=NULL;
+    ListNode *curr=head;
+    while(curr){
+        ListNode *next = curr->next;
+        sorted_head = insertionSort(sorted_head, curr);
+        curr = next;
+    }
+
+    return sorted_head;
 }
 
 int main(){
