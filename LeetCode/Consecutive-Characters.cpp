@@ -1,4 +1,4 @@
-//https://leetcode.com/problems/count-substrings-that-differ-by-one-character/
+//https://leetcode.com/problems/consecutive-characters/
 #include<iostream>
 #include<vector>
 using namespace std;
@@ -12,29 +12,21 @@ typedef long long ll;
 #define INF 1e16
 #define MOD 1000000007
 
-int solve(string s, string t, int i, int j){
-    int res = 0, pre = 0, cur = 0;
-    for(int n=s.length(), m=t.length(); i<n and j<m; i++, j++){
-        cur++;
-        if(s[i] != t[j]){
-            pre=cur, cur=0;
-        }
-        res += pre;
-    }
-    return res;
-}
-
-int countSubstrings(string s, string t) {
+int maxPower(string s) {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
+    int n=s.length();
     int ans=0;
-
-    for(int i=0; i<s.length(); i++){
-        ans += solve(s, t, i, 0);
-    }
-    for(int j=1; j<t.length(); j++){
-        ans += solve(s, t, 0, j);
+    for(int i=0; i<n; i++){
+        int j=i;
+        int ct=0;
+        while(j<n and s[j]==s[i]){
+            j++;
+            ct++;
+        }
+        ans = max(ans, ct);
+        j=i;
     }
     return ans;
 }
