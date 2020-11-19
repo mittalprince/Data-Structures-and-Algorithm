@@ -1,5 +1,7 @@
+//https://leetcode.com/problems/delete-operation-for-two-strings/
 #include<iostream>
 #include<vector>
+#include<cstring> 
 using namespace std;
 typedef long long ll;
 #define ip(arr, n) for(int i=0; i<n; i++) cin>>arr[i];
@@ -33,6 +35,25 @@ int minDistance(string word1, string word2) {
         }
     }
     return dp[n][m];
+}
+
+int minDistance(string text1, string text2) {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
+    int n=text1.size(),m=text2.size();
+    int i,j;
+    int dp[n+1][m+1];
+    memset(dp,0,sizeof(dp));
+    for(i=1;i<=n;i++)
+        for(j=1;j<=m;j++)
+        {
+            if(text1[i-1]==text2[j-1])
+                dp[i][j]=1+dp[i-1][j-1];
+            else
+                dp[i][j]=max(dp[i-1][j],dp[i][j-1]);
+        }
+    return n+m-2*dp[n][m];
 }
 
 int main(){
