@@ -2,6 +2,7 @@
 #include<iostream>
 #include<vector>
 #include<unordered_set>
+#include<algorithm>
 using namespace std;
 typedef long long ll;
 #define ip(arr, n) for(int i=0; i<n; i++) cin>>arr[i];
@@ -43,6 +44,33 @@ bool wordBreak(string s, vector<string>& wordDict) {
     }
 
     return solve(s, 0, m, dp);
+}
+
+// Top Down
+bool wordBreak(string s, vector<string>& wordDict) {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
+    unordered_set<string>dict;
+    for(string i: wordDict){
+        dict.insert(i);
+    }
+
+    int n=s.size();
+    vector<bool>dp(n+1, false);
+
+    dp[0]=1;
+
+    for(int i=1; i<=n; i++){
+        for(int j=0; j<i; j++){
+            if(!dp[j])continue;
+            if(dict.count(s.substr(j, i-j))){
+                dp[i]=true;
+                break;
+            }
+        }
+    }
+    return dp[n];
 }
 
 int main(){
