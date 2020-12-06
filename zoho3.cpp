@@ -1,5 +1,8 @@
 #include<iostream>
 #include<vector>
+#include<unordered_map>
+#include<set>
+#include<queue>
 using namespace std;
 typedef long long ll;
 #define ip(arr, n) for(int i=0; i<n; i++) cin>>arr[i];
@@ -12,7 +15,32 @@ typedef long long ll;
 #define MOD 1000000007
 
 void solve(){
-    
+    int n;
+    cin>>n;
+
+    unordered_map<string, set<string> >adj;
+
+    for(int i=0; i<n; i++){
+        string u,v;
+        cin>>u>>v;
+
+        adj[v].insert(u); // here is an direct edge from father to child
+    }
+
+    int q;
+    cin>>q;
+
+    while(q--){
+        string grandparent;
+        cin>>grandparent;
+
+        int ans=0;
+        for(string child: adj[grandparent]){ // hre is an loop for his each child 
+            ans += adj[child].size(); // then add count of his grandchild into ans
+        }
+
+        cout<<ans<<endl;
+    }
 }
 
 int main(){
@@ -29,3 +57,5 @@ int main(){
     }
     return 0;
 }
+
+// Compplxity -> O(n*q);

@@ -1,9 +1,6 @@
 #include<iostream>
 #include<vector>
-#include<queue>
-#include<unordered_map>
-#include<climits>
-#include<cmath>
+#include<cstring>
 using namespace std;
 typedef long long ll;
 #define ip(arr, n) for(int i=0; i<n; i++) cin>>arr[i];
@@ -14,88 +11,90 @@ typedef long long ll;
 #define inf 1e9
 #define INF 1e16
 #define MOD 1000000007
+#define MAX 1000050
 
-unordered_map<ll, ll>m;
-ll n;
+ll smalles_prime_factor[MAX+1];
+ll total_factors_cnt[MAX+1];
+ll prefix[MAX+1];
 
-ll canPlace(){
-    priority_queue<pair<ll, ll> >pq;
-    for(auto it: m){
-        pq.push({it.second, it.first});
-    }
+void find_smallest_prime_factors(){
+	memset(smalles_prime_factor, 0, sizeof(smalles_prime_factor));
 
-    unordered_map<ll, ll>t;
-    ll i=0;
+	for(ll i=0; i<=MAX; i++){
+		smalles_prime_factor[i]=i;
+	}
+	for(ll i=4; i<=MAX; i+=2){
+		smalles_prime_factor[i]=2;
+	}
 
-    ll ans=INT_MAX;
+	for(ll i=3; i*i<=MAX; i+=2){
+		if(smalles_prime_factor[i]==i){
+			for(ll j=i*i; j<=MAX; j+=i){
+				if(smalles_prime_factor[j]==j){
+					smalles_prime_factor[j]=i;
+				}
+			}
+		}
+	}
+}
 
-    while(!pq.empty()){
-        ll size = pq.size();
-        priority_queue<pair<ll, ll> >q;
-        for(ll j=0; j<size; j++){
-            auto top = pq.top();
-            pq.pop();
-            // cout<<top.second<<" "<<top.first<<endl;
-            if(t.count(top.second)){
-                // cout<<top.first<<" "<<i<<" "<<t[top.first]<<endl;
-                ans = min(ans, i-t[top.second]-1);
-            }
-            t[top.second] = i;
-            if(top.first>1){
-                q.push({top.first-1, top.second});
-            }
-            i++;
+void preCompute(){
+	total_factors_cnt[1] = prefix[1] = 1;
+ 
+    for (ll i=2; i<=MAX; i++){
+ 
+        ll mspf = smalles_prime_factor[i];
+        ll prim = mspf;
+        ll temp = i;
+        ll cnt = 0;
+ 
+        while (temp % mspf == 0) {
+            temp /= mspf;
+            cnt += 1;
+            prim = prim * mspf;
         }
-        pq=q;
+ 
+        total_factors_cnt[i] = (cnt + 1)* total_factors_cnt[temp];
+ 
+        prefix[i] = prefix[i - 1]+total_factors_cnt[i];
     }
-
-    if(ans == INT_MAX){
-        ans = n-1;
-    }
-    return ans;
 }
 
 void solve(){
-    cin>>n;
-    vector<ll>arr(n);
-    ip(arr, n);
+	ll k;
+	cin>>k;
 
-    m.clear();
-    
-    for(ll i: arr){
-        m[i]++;
-    }
-    if(m.size()==1){
-        cout<<"0\n";
-        return;
-    }
+	ll start = 1;
+    ll end = MAX - 1;
+ 
+    while(start<end){
 
-    for(auto it: m){
-        ll val = ceil((double)n/2);
-        if(val<it.second){
-            cout<<"0\n";
-            return;
-        }
-        if(val == it.second){
-            cout<<"1\n";
-            return;
-        }
+        ll mid = (start + end) / 2;
+        if (prefix[mid] == k){
+			cout<<mid<<endl;
+			return;
+		}
+        else if (prefix[mid] < k)
+            start = mid + 1;
+        else end = mid;
     }
-
-    cout<<canPlace()<<endl;
+ 
+    cout<<start<<endl;
 }
 
 int main(){
 
-    #ifndef ONLINE_JUDGE
-    freopen("input.txt","r",stdin);
-    freopen("output.txt","w",stdout);
-    #endif
+	#ifndef ONLINE_JUDGE
+	freopen("input.txt","r",stdin);
+	freopen("output.txt","w",stdout);
+	#endif
 
-    int t;
-    cin>>t;
-    while(t--){
-        solve();
-    }
-    return 0;
+	find_smallest_prime_factors();
+	preCompute();
+	int t;
+	cin>>t;
+	while(t--){
+		solve();
+	}
+	return 0;
 }
