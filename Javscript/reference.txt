@@ -1,0 +1,18 @@
+Closure -> 
+1. https://medium.com/@prashantramnyc/javascript-closures-simplified-d0d23fa06ba4
+
+Hoisting ->
+1. https://medium.com/javascript-in-plain-english/https-medium-com-javascript-in-plain-english-what-is-hoisting-in-javascript-a63c1b2267a1
+
+Let vs Var ->
+1. https://stackoverflow.com/questions/762011/whats-the-difference-between-using-let-and-var
+
+Callback Hell ->
+1. https://www.geeksforgeeks.org/what-is-callback-hell-in-node-js/
+
+Event Loop ->
+1. https://www.educative.io/edpresso/what-is-an-event-loop-in-javascript
+2. https://blog.sessionstack.com/how-javascript-works-event-loop-and-the-rise-of-async-programming-5-ways-to-better-coding-with-2f077c4438b5
+
+Async - Await ->
+1. https://medium.com/javascript-in-plain-english/async-await-javascript-5038668ec6eb
