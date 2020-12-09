@@ -11,7 +11,7 @@ const throttle = function(fn, delay){
         // calls fn only whenflag is set
         // once we call fn we set false flag and again set after certain dealy
         if(flag){
-            fn();
+            fn.apply(context, args);
             flag=false;
             setTimeout(()=>{
                 flag=true;

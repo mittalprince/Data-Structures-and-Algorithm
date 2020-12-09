@@ -13,7 +13,7 @@ const debounce = function(fn, delay){
         // this will clear timeout and getData func would not call and we again start timeout.
         clearTimeout(timer);
         setTimeout(()=>{
-            getData.apply(context, arguments);
+            getData.apply(context, agrs);
         }, delay); 
     }
 }
