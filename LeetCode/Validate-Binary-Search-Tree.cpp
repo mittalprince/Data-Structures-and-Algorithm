@@ -13,6 +13,15 @@ typedef long long ll;
 #define INF 1e16
 #define MOD 1000000007
 
+struct TreeNode {
+   int val;
+   TreeNode *left;
+   TreeNode *right;
+   TreeNode() : val(0), left(nullptr), right(nullptr) {}
+   TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+   TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+};
+
 bool isValidBST(TreeNode* root, long long mx=LLONG_MAX, long long mi=LLONG_MIN) {
     if(root==NULL)return true;
 

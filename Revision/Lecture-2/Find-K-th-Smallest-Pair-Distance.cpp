@@ -1,6 +1,7 @@
 // https://leetcode.com/problems/find-k-th-smallest-pair-distance/
 #include<iostream>
 #include<vector>
+#include<algorithm>
 using namespace std;
 typedef long long ll;
 #define ip(arr, n) for(int i=0; i<n; i++) cin>>arr[i];
