@@ -31,7 +31,7 @@ Using DP to solve the problem:
         only add once.
 
 */
-        
+
 int dp[51][51][51];
 int helper(vector<vector<int>>& grid,int r1,int c1,int c2,int n){
     int r2=r1+c1-c2;
@@ -42,9 +42,9 @@ int helper(vector<vector<int>>& grid,int r1,int c1,int c2,int n){
     int ans=grid[r1][c1];
     if(c1!=c2)
         ans+=grid[r2][c2];
-    int temp=max(helper(grid,r1,c1+1,c2+1,n),helper(grid,r1+1,c1,c2+1,n));
-    temp=max(temp,helper(grid,r1,c1+1,c2,n));
-    temp=max(temp,helper(grid,r1+1,c1,c2,n));
+    int temp=max(helper(grid,r1,c1+1,c2+1,n),helper(grid,r1+1,c1,c2+1,n)); // (right,right) & (down,right)
+    temp=max(temp,helper(grid,r1,c1+1,c2,n)); // (right,down)
+    temp=max(temp,helper(grid,r1+1,c1,c2,n)); // (down,down)
     ans+=temp;
     return dp[r1][c1][c2]=ans;
 }
