@@ -1,3 +1,4 @@
+//https://leetcode.com/problems/next-greater-element-iii/
 #include<iostream>
 #include<vector>
 using namespace std;
@@ -13,6 +14,9 @@ If no such positive 32-bit integer exists, you need to return -1.
 */
 
 int nextGreaterElement(int N) {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
     string a = to_string(N);
     int n=a.length();
 
@@ -27,7 +31,9 @@ int nextGreaterElement(int N) {
     j=i+1;
     while(j<n && a[j]>a[i]) j++;
     swap(a[i], a[j-1]);
-    sort(a.begin()+i+1, a.end());
+
+    reverse(a.begin()+i+1, a.end());
+
     long long ans= stoll(a);
 
     return ans>INT_MAX?-1:ans;
