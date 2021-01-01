@@ -12,7 +12,7 @@ typedef long long ll;
 #define INF 1e16
 #define MOD 1000000007
 
-compress(vector<char>& chars) {
+int compress(vector<char>& chars) {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
