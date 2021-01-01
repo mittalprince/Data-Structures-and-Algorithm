@@ -16,14 +16,17 @@ bool canFormArray(vector<int>& arr, vector<vector<int>>& pieces) {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    for(vector<int>p: pieces){
-        int q=0;
-        for(int v: arr){
-            if(q<p.size() and v==p[q]){
-                q++;
-            }
-        }
-        if(q!=p.size())return false;
+    vector<int> ps(101, -1);
+    for (int i = 0; i < pieces.size(); ++i)
+        ps[pieces[i][0]] = i;
+
+    for (int i = 0; i < arr.size(); ) {
+        int p = ps[arr[i]], j = 0;
+        if (p == -1)
+            return false;
+        while (j < pieces[p].size())
+            if (arr[i++] != pieces[p][j++])
+                return false;
     }
     return true;
 }
