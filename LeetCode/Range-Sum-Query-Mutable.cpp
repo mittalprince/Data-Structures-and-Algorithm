@@ -162,6 +162,78 @@ public:
     }
 };
 
+class NumArray
+{
+public:
+    int tree[400000];
+    int n;
+
+    void build(int ind, int low, int high, vector<int> &nums)
+    {
+        if (low == high)
+        {
+            tree[ind] = nums[low];
+            return;
+        }
+
+        int mid = (low + high) / 2;
+        build(2 * ind + 1, low, mid, nums);
+        build(2 * ind + 2, mid + 1, high, nums);
+        tree[ind] = tree[2 * ind + 1] + tree[2 * ind + 2];
+    }
+
+    void update(int ind, int low, int high, int i, int val)
+    {
+        if (low == high)
+        {
+            tree[ind] = val;
+            return;
+        }
+        int mid = (low + high) / 2;
+        if (i <= mid)
+            update(2 * ind + 1, low, mid, i, val);
+        else
+            update(2 * ind + 2, mid + 1, high, i, val);
+        tree[ind] = tree[2 * ind + 1] + tree[2 * ind + 2];
+    }
+
+    int querry(int ind, int low, int high, int l, int h)
+    {
+        if (low >= l && high <= h)
+            return tree[ind];
+        if (high < l || low > h)
+            return 0;
+        int mid = (low + high) / 2;
+
+        int left = querry(2 * ind + 1, low, mid, l, h);
+        int right = querry(2 * ind + 2, mid + 1, high, l, h);
+        return left + right;
+    }
+
+    NumArray(vector<int> &nums)
+    {
+        ios_base::sync_with_stdio(false);
+        cin.tie(NULL);
+        n = nums.size();
+        memset(tree, 0, sizeof(tree));
+        if (n != 0)
+            build(0, 0, n - 1, nums);
+    }
+
+    void update(int i, int val)
+    {
+        if (n != 0)
+            update(0, 0, n - 1, i, val);
+    }
+
+    int sumRange(int i, int j)
+    {
+        if (n != 0)
+            return querry(0, 0, n - 1, i, j);
+        return 0;
+    }
+};
+
 int main()
 {
 
