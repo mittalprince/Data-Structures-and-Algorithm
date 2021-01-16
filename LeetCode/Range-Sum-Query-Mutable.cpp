@@ -1,6 +1,7 @@
 //https://leetcode.com/problems/range-sum-query-mutable/
 #include <iostream>
 #include <vector>
+#include <cstring>
 using namespace std;
 typedef long long ll;
 #define ip(arr, n)              \
