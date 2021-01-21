@@ -1,100 +1,111 @@
-#include<iostream>
-#include<vector>
-#include<cstring>
+//https://leetcode.com/problems/create-sorted-array-through-instructions/
+#include <iostream>
+#include <vector>
 using namespace std;
 typedef long long ll;
-#define ip(arr, n) for(int i=0; i<n; i++) cin>>arr[i];
-#define ip1(arr, n) for(int i=1; i<=n; i++) cin>>arr[i];
-#define op(arr, n) for(int i=0; i<n; i++) cout<<arr[i]<<" ";
-#define fstIO ios_base::sync_with_stdio(false); cin.tie(NULL);
-#define debug(x) cout<<x<<"\n";
+#define ip(arr, n)              \
+	for (int i = 0; i < n; i++) \
+		cin >> arr[i];
+#define ip1(arr, n)              \
+	for (int i = 1; i <= n; i++) \
+		cin >> arr[i];
+#define op(arr, n)              \
+	for (int i = 0; i < n; i++) \
+		cout << arr[i] << " ";
+#define fstIO                         \
+	ios_base::sync_with_stdio(false); \
+	cin.tie(NULL);
+#define debug(x) cout << x << "\n";
 #define inf 1e9
 #define INF 1e16
-#define MOD 1000000007
-#define MAX 1000050
+#define MOD 1000003
 
-ll smalles_prime_factor[MAX+1];
-ll total_factors_cnt[MAX+1];
-ll prefix[MAX+1];
+vector<ll> BIT;
+vector<ll> arr;
+ll n;
 
-void find_smallest_prime_factors(){
-	memset(smalles_prime_factor, 0, sizeof(smalles_prime_factor));
-
-	for(ll i=0; i<=MAX; i++){
-		smalles_prime_factor[i]=i;
+void init(ll i, ll val)
+{
+	ll index = i + 1;
+	while (index <= n)
+	{
+		BIT[index] = (BIT[index] + val) % MOD;
+		index += index & (-index);
 	}
-	for(ll i=4; i<=MAX; i+=2){
-		smalles_prime_factor[i]=2;
+}
+
+void update(ll i, ll val)
+{
+	init(i, val - arr[i]);
+	arr[i] = val;
+}
+
+ll getSum(ll i)
+{
+	ll sum = 0;
+	ll index = i + 1;
+	while (index > 0)
+	{
+		sum = (sum + BIT[index]) % MOD;
+		index -= index & (-index);
+	}
+	return sum % MOD;
+}
+
+ll sumRange(ll left, ll right)
+{
+	return (getSum(right) - getSum(left - 1) + MOD) % MOD;
+}
+
+int main()
+{
+	cin >> n;
+	arr.resize(n);
+	ip(arr, n);
+
+	BIT = vector<ll>(n + 1, 0);
+	for (ll i = 0; i < n; i++)
+	{
+		ll t = 0;
+		if (arr[i] % 4 == 0)
+			t = arr[i];
+		else if (arr[i] % 4 == 1)
+			t = 1;
+		else if (arr[i] % 4 == 2)
+			t = arr[i] + 1;
+		arr[i] = t;
 	}
 
-	for(ll i=3; i*i<=MAX; i+=2){
-		if(smalles_prime_factor[i]==i){
-			for(ll j=i*i; j<=MAX; j+=i){
-				if(smalles_prime_factor[j]==j){
-					smalles_prime_factor[j]=i;
-				}
-			}
+	for (ll i = 0; i < n; i++)
+	{
+		init(i, arr[i]);
+		op(BIT, n);
+		cout << endl;
+	}
+
+	ll q;
+	cin >> q;
+	while (q--)
+	{
+		ll type, l, r;
+		cin >> type >> l >> r;
+		if (type == 1)
+		{
+			ll t = 0;
+			if (r % 4 == 0)
+				t = r;
+			else if (r % 4 == 1)
+				t = 1;
+			else if (r % 4 == 2)
+				t = r + 1;
+			update(l, t);
+			cout << "-1 ";
+		}
+		else
+		{
+			cout << sumRange(l, r) << " ";
 		}
 	}
-}
-
-void preCompute(){
-	total_factors_cnt[1] = prefix[1] = 1;
- 
-    for (ll i=2; i<=MAX; i++){
- 
-        ll mspf = smalles_prime_factor[i];
-        ll prim = mspf;
-        ll temp = i;
-        ll cnt = 0;
- 
-        while (temp % mspf == 0) {
-            temp /= mspf;
-            cnt += 1;
-            prim = prim * mspf;
-        }
- 
-        total_factors_cnt[i] = (cnt + 1)* total_factors_cnt[temp];
- 
-        prefix[i] = prefix[i - 1]+total_factors_cnt[i];
-    }
-}
-
-void solve(){
-	ll k;
-	cin>>k;
-
-	ll start = 1;
-    ll end = MAX - 1;
- 
-    while(start<end){
-
-        ll mid = (start + end) / 2;
-        if (prefix[mid] == k){
-			cout<<mid<<endl;
-			return;
-		}
-        else if (prefix[mid] < k)
-            start = mid + 1;
-        else end = mid;
-    }
- 
-    cout<<start<<endl;
-}
-
-int main(){
-
-	#ifndef ONLINE_JUDGE
-	freopen("input.txt","r",stdin);
-	freopen("output.txt","w",stdout);
-	#endif
-
-	find_smallest_prime_factors();
-	preCompute();
-	int t;
-	cin>>t;
-	while(t--){
-		solve();
-	}
+	cout << endl;
 	return 0;
 }

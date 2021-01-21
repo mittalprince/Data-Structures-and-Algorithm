@@ -12,7 +12,57 @@ typedef long long ll;
 #define MOD 1000000007
 
 void solve(){
-    
+    string s;
+    cin>>s;
+
+    ll n=s.length();
+    if(n<3){
+        cout<<"0\n";
+        return;
+    }
+    ll three=0;
+    ll one=0;
+    ll two=0;
+    // ll t=0;
+
+    ll freq[26]={0};
+    for(char i: s){
+        freq[i-'a']++;
+    }
+
+    for(int i=0; i<26; i++){
+        if(freq[i]==1)one++;
+        else if(freq[i]==2)two++;
+        else if(freq[i]==3)three++;
+        else if(freq[i]>3){
+            three += freq[i]/3;
+			ll mod=freq[i]%3;
+			if(mod==1)one++;
+			else if(mod==2)two++;
+        }
+    }
+
+    ll ans=three;
+    if(two==0){
+        cout<<ans<<endl;
+        return;
+    }
+
+    // while(one and two){
+    //     ans++;
+    //     two--;
+    //     one--;
+    // }
+    ans += min(one, two);
+    if(one<two){
+        two -= one;
+        two *=2;
+        two/=3;
+        ans += two;
+    }
+
+    cout<<ans<<endl;
+
 }
 
 int main(){
