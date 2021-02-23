@@ -1,5 +1,6 @@
 #include<iostream>
 #include<vector>
+#include<unordered_map>
 using namespace std;
 typedef long long ll;
 #define ip(arr, n) for(int i=0; i<n; i++) cin>>arr[i];
@@ -11,23 +12,52 @@ typedef long long ll;
 #define INF 1e16
 #define MOD 1000000007
 
-int solve(vector<int>&arr){
-	int n=arr.size();
-	if(n==1 || arr[0]!= arr[1])return arr[0];
+ll factorial(ll n){
+	if(n<=1)return 1;
+	return factorial(n-1)*n;
+}
 
-	int s=0, e=n-1;
-	while(s<e){
-		int mid = (s+e)/2;
-		if(mid&1){
-			if(arr[mid]==arr[mid-1])s=mid+1;
-			else e=mid;
-		}
-		else{
-			if(mid<n+1 and arr[mid]==arr[mid+1])s=mid+1;
-			else e=mid;
+void solve(){
+	string x,y;
+	cin>>x>>y;
+	bool friendly = true;
+	if(x[0]=='0' or y[0]=='0')friendly=false;
+	unordered_map<int, ll> sx, sy;
+	for(ll i=0; i<x.length(); i++){
+		sx[x[i]-'0']++;
+	}
+	for(ll i=0; i<y.length(); i++){
+		sy[y[i]-'0']++;
+	}
+	for(auto it: sx){
+		if(it.second != sy[it.first]){
+			friendly=false;
+			break;
 		}
 	}
-	return arr[s];
+	ll denomiator = 1;
+	ll numerator = 0;
+	if(friendly){
+		for(auto it: sx){
+			denomiator *= factorial(it.second);
+		}
+		if(sx.count(0)){
+			numerator = factorial(x.length() - 1) * (x.length()-sx[0]);
+		}
+		else numerator = factorial(x.length());
+	}
+	else{
+		for (auto it : sy){
+			denomiator *= factorial(it.second);
+		}
+		if (sy.count(0)){
+			numerator = factorial(y.length() - 1) * (y.length() - sy[0]);
+		}
+		else
+			numerator = factorial(y.length());
+	}
+	ll ans = numerator/denomiator;
+	cout<<ans<<endl; 
 }
 
 int main(){
@@ -40,19 +70,7 @@ int main(){
 	int t;
 	cin>>t;
 	while(t--){
-		int n;
-		cin>>n;
-		vector<int> arr(n);
-		ip(arr, n);
-		cout<<solve(arr)<<endl;
+		solve();
 	}
 	return 0;
 }
-
-/*
-2
-11
-1 1 2 2 3 4 4 5 5 6 6
-11
-1 1 2 2 3 3 4 4 5 5 6
-*/
