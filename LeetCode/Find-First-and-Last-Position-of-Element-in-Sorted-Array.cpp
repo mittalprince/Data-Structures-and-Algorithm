@@ -1,3 +1,4 @@
+// https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/
 #include<iostream>
 #include<vector>
 using namespace std;
@@ -48,7 +49,7 @@ int upper_bound(vector<int>&arr, int target){
 vector<int> searchRange(vector<int>& nums, int target) {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-    
+
     int l = lower_bound(nums,target);
     int u = upper_bound(nums,target);
     return {l,u};
