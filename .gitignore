@@ -4,3 +4,4 @@ input.txt
 output.txt
 .DS_Store
 /.vscode
+/tail-f/node_modules
