@@ -3,6 +3,7 @@
 #include<vector>
 #include<algorithm>
 #include<queue>
+#include<map>
 using namespace std;
 typedef long long ll;
 #define ip(arr, n) for(int i=0; i<n; i++) cin>>arr[i];
@@ -31,6 +32,20 @@ int minMeetingRooms(vector<vector<int>>& arr){
         else pq.push(arr[i][1]);
     }
     return pq.size();
+}
+
+int minMeetingRooms(vector<vector<int>>& arr){
+    map<int, int> m;
+    for(auto it:  arr){
+        m[it[0]]++;
+        m[it[1]]--;
+    }
+    int ans=0, ongoing=0;
+    for(auto it: m){
+        ongoing += it.second;
+        ans = max(ans, ongoing);
+    }
+    return ans;
 }
 
 int main(){
