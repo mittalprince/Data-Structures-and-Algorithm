@@ -22,7 +22,7 @@ int minMeetingRooms(vector<vector<int>>& arr){
         return a[0]<b[0];
     });
 
-    priority_queue<int, vector<int>, greater<int> >pq;
+    priority_queue<int, vector<int>, greater<int> >pq; // min pq
     pq.push(arr[0][1]);
     for(int i=1; i<n; i++){
         if(pq.top()<=arr[i][0]){
