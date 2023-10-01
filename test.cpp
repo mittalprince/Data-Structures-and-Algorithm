@@ -11,6 +11,7 @@ typedef long long ll;
 #define INF 1e16
 #define MOD 1000000007
 
+
 void solve(){
 	int n;
 	cin>>n;
