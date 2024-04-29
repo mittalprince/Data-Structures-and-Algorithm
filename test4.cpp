@@ -11,34 +11,39 @@ typedef long long ll;
 #define INF 1e16
 #define MOD 1000000007
 
-int soolve2(vector<int>arr,  int i, bool taken){
-    if (i == arr.size())return 0;
-    int opt1 = 
+bool isPossible(vector<int>arr, ll mid, int h){
+    int ct=0;
+    for(int i:  arr){
+        ct += i/mid;
+        if(i%mid)ct++;
+    }
+    return ct<=h;
 }
-
 void solve(){
-    int n;
-    cin>>n;
-    vector<int>arr(n);
-    for(int i=0; i<n; i++) cin>>arr[i];
-    int armor=0;
-    cin>>armor;
-    
-    unordered_map<int, bool>m;
-    for(int i: arr)m[i]
+    int n,h;
+    cin>>n>>h;
+    vecto<int>arr(n);
+    for(int i=0; i<n; i++)cin>>arr[i];
 
-    reverse(arr.begin(), arr.end());
-    dp[0] = 1;
-    dp[i] = dp[i-1]+m, 
-    return dp[n];
+    int s=0,e=h;
+    while(s<e){
+        ll mid = (s+e)/2;
+        if(isPossible(arr, mid, h)){
+            e=mid;
+            ans = mid;
+        } else s=mid-1;
+    }
+    cout<<ans<<endl;
 }
 
 int main(){
 
+/*
     #ifndef ONLINE_JUDGE
     freopen("input.txt","r",stdin);
     freopen("output.txt","w",stdout);
     #endif
+*/
 
     int t;
     cin>>t;

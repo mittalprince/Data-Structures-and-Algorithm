@@ -1,49 +1,80 @@
-#include<iostream>
-#include<vector>
-#include<unordered_map>
+#include <iostream>
+#include <vector>
+#include <algorithm>
 using namespace std;
-typedef long long ll;
-#define ip(arr, n) for(int i=0; i<n; i++) cin>>arr[i];
-#define ip1(arr, n) for(int i=1; i<=n; i++) cin>>arr[i];
-#define op(arr, n) for(int i=0; i<n; i++) cout<<arr[i]<<" ";
-#define fstIO ios_base::sync_with_stdio(false); cin.tie(NULL);
-#define debug(x) cout<<x<<"\n";
-#define inf 1e9
-#define INF 1e16
-#define MOD 1000000007
 
-void solve(){
-    ll n;
-    cin>>n;
-    vector<ll>arr(n);
-    ip(arr, n);
-
-    ll sum=0;
-    unordered_map<ll,ll>m;
-    for(ll i: arr){
-        m[i]++;
-        sum +=i;
+int CeilI(vector<int> &v, int l, int r, int key)
+{
+    while (r - l > 1)
+    {
+        int m = l + (r - l) / 2;
+        if (v[m] >= key)
+        {
+            r = m;
+        }
+        else
+            l = m;
     }
-    ll mx=0;
-    for(auto it:m){
-        mx = max(mx, it.first*it.second);
-    }
-    sum -= mx;
-    cout<<sum<<endl;
-
+    return r;
 }
 
-int main(){
-
-    #ifndef ONLINE_JUDGE
-    freopen("input.txt","r",stdin);
-    freopen("output.txt","w",stdout);
-    #endif
-
-    int t;
-    cin>>t;
-    while(t--){
-        solve();
+int LIS(string &v)
+{
+    if (v.size() == 0)
+        return 0;
+    vector<int> tail(v.size(), 0);
+    int len = 1;
+    tail[0] = v[0];
+    for (int i = 1; i < v.size(); i++)
+    {
+        if (v[i] < tail[0])
+        {
+            tail[0] = v[i];
+        }
+        else if (v[i] > tail[len - 1])
+        {
+            tail[len++] = v[i];
+        }
+        else
+            tail[CeilI(tail, -1, len - 1, v[i])] = v[i];
     }
-    return 0;
+    return len;
+}
+int solve(string arr)
+{
+    // Write your code here
+    //    int n = arr.size();
+    //    int dp[n];
+    //    memset(dp, 1, sizeof dp);
+    //    int ans = 1;
+    //    for(int i=0; i<n; i++){
+    //         int a= 1;
+    //         for(int j=0; j<i; j++){
+    //             if (arr[j]<arr[i]){
+    //                 a = max(a, dp[j]+1);
+    //             }
+    //         }
+    //         dp[i]=a;
+    //         ans = max(ans, dp[i]);
+    //    }
+    return 26 - LIS(arr);
+}
+
+int main()
+{
+
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    int T;
+    cin >> T;
+    for (int t_i = 0; t_i < T; t_i++)
+    {
+        string s;
+        cin >> s;
+
+        int out_;
+        out_ = solve(s);
+        cout << out_;
+        cout << "\n";
+    }
 }
