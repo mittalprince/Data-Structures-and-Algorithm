@@ -16,6 +16,9 @@ typedef long long ll;
 
 /*
 Used to find shortest dist from a single source. It can not useful when graph contain negative weight cycle.
+Time Complexity: O(V 2 )
+Auxiliary Space: O(V)
+
 */
 
 template<typename T>

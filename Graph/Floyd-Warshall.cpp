@@ -14,7 +14,12 @@ typedef long long ll;
 /*
 Used to find shortest dist from any given src to any given dest.
 find shortest distances between every pair of vertices in a given edge weighted directed Graph
+
+The Floyd Warshall Algorithm is an all pair shortest path algorithm unlike Dijkstra and Bellman Ford which are single source shortest path algorithms. This algorithm works for both the directed and undirected weighted graphs. But, it does not work for the graphs with negative cycles (where the sum of the edges in a cycle is negative).
+Time Complexity: O(V3), where V is the number of vertices in the graph and we run three nested loops each of size V
+Auxiliary Space: O(V2), to create a 2-D matrix in order to store the shortest distance for each pair of nodes.
 */
+
 vector<vector<pair<ll, ll> > >adj(MAX);
 ll n,m;
 

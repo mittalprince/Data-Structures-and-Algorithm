@@ -16,6 +16,15 @@ typedef long long ll;
 // In Kruskal we Used DU logic. Insert the given edges into MST when the edge vertex parent are not same means they are not 
 // in single component , union them and add their cost.
 
+/*
+Time Complexity: O(E * logE) or O(E * logV)
+
+Sorting of edges takes O(E * logE) time.
+After sorting, we iterate through all edges and apply the find-union algorithm. The find and union operations can take at most O(logV) time.
+So overall complexity is O(E * logE + E * logV) time.
+The value of E can be at most O(V2), so O(logV) and O(logE) are the same. Therefore, the overall time complexity is O(E * logE) or O(E*logV)
+Auxiliary Space: O(V + E), where V is the number of vertices and E is the number of edges in the graph.
+*/
 class DSU{
     vector<ll>parent, rank;
     ll totalComponents;
