@@ -28,7 +28,7 @@ class AutocompleteSystem {
     struct comp{
         bool operator()(const pair<int, string>&a, pair<int, string>&b){
             if(a.first == b.first) return a.second < b.second;
-            return a.first > a.first;
+            return a.first > b.first;
         }
     };
 
