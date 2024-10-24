@@ -1,0 +1,97 @@
+[Problem Solving] VENDING MACHINE
+
+Rules of the Game
+1. You are free to choose your best language and IDE (Development Environment) as
+per your choice.
+2. We are particularly interested in understanding your craft on how you design your
+solution. Your code enables us to know about your ability to code. So the key
+things we are interested are:
+● The final code should compile and run successfully.
+● All corner cases should be handled.
+● The code is modular with clear interfaces identified and coded.
+● Proper use of abstractions and clean production ready code.
+● Code can be extended for features addition.
+
+Problem Definition
+I own a vending machine that can hold up to a total of 'N' food items which could be a
+max of 26 types (A,B,C ... Z) at any given point in time. Each slot is given a number
+starting at 1 increasing with increasing distance from the dispensing point in steps of one.
+I want to create an automated vending system that allows me to manage my machine
+without human intervention.
+To prepare the machine for use we need to fill it with consumables. Items of the same
+type cost the same amount of money so each item of type ‘A’ will cost the same amount
+and we only take currency in exact amounts(we assume customers are nice enough to
+have the exact amount in hand). The order we maintain to fill the food items will be the
+order vending machines can dispense them(users cannot request items in random order).
+For example, if the sequence of items inserted into the machine is A, B, C, D then it can
+only dispense the food items in order A, B, C, ... so if a customer wants to order C and not
+
+A & B, it is mandatory to charge for A + B + C and dispense all 3 items. Whenever such
+requests are initiated, machine need to perform few minimum actions:
+1. Checking availability of items
+2. Verifying amount of cash provided
+3. Dispensing all the items to the vending point
+Valid assumptions
+1. Slot index starts at 1
+2. When an item is dispensed, items after the requested item are shifted to 1 so slot
+index gets reset to after every interaction.
+3. A transaction has 2 user inputs
+a. Slot index
+b. Amount of money provided
+
+I have been a fan of IOT for a long time and wanted to manage this from the comfort of
+my home. I need the ability to find out:
+1. Current number of items available
+2. Total cash machine has earned so far
+
+Scope
+We interact with the system via a simple set of commands which produce a specific
+output. Please take a look at the example below, which includes all the commands you
+need to support - they're self explanatory. The system should accept a filename as a
+parameter at the command prompt and read the commands from that file
+Example: Input File (contents of file):
+init_machine 5
+set_prices 10 20 30 5 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26
+insert A
+insert B
+insert B
+insert D
+
+insert D
+insert C
+get 2 pay 30
+get 1 pay 10
+get 1 pay 20
+get 10 pay 0
+status
+
+Output (to STDOUT):
+Initialized machine with capacity 5
+A=10,B=20,C=30,D=5,E=5....so on
+Inserted item at 1 A
+Inserted item at 2 B
+Inserted item at 3 B
+Inserted item at 4 D
+Inserted item at 5 D
+Insufficient space
+Dispensing A B
+Insufficient amount for B
+Dispensing B
+Item not available
+Available 2
+Can earn 10
+Has earned 50
+
+Explanation:
+● 1st: First command initialized the machine with 5 capacity
+● 2nd: Set the prices for each of the item type A to Z
+● 3rd-6th: subsequent commands inserts item of type with their price
+● 7th: command will fail as it exceeds the machine capacity
+● 8th: User requests slot 2 to dispense so the machine will charge for 1st item + 2nd
+item that is A + B, dispense them and shift remaining items back to slot 1.
+● 9th: User requests slot 1 that costs 20 but provided only 10, transaction fails
+
+● 10th: User requests slot 1 with the correct amount, machine will charge for 1st item
+that is B, dispense it and shift the remaining slot.
+● 11th: User requests a slot is not available at that moment
+● 12th: Prints the required details of the machine at that moment
