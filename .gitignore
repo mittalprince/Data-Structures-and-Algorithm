@@ -9,3 +9,4 @@ output.txt
 .project
 .settings/
 target/
+.idea/
