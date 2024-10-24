@@ -1,7 +1,7 @@
 // https://leetcode.com/problems/insert-delete-getrandom-o1/
 #include<iostream>
 #include<vector>
-#include<unordeered_map>
+#include<unordered_map>
 using namespace std;
 typedef long long ll;
 #define ip(arr, n) for(int i=0; i<n; i++) cin>>arr[i];

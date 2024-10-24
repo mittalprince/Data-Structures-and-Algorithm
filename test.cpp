@@ -105,11 +105,11 @@ void solve(){
     cin>>n;
     string s;
     cin>>s;
-    bool f=0;
-    for(int i=0; i<n; i++){
-        if(s[i]=='"')f = !f;
-        else if(s[i]==',' && !f) s[i]='.';
-    }
+    // bool f=0;
+    // for(int i=0; i<n; i++){
+    //     if(s[i]=='"')f = !f;
+    //     else if(s[i]==',' && !f) s[i]='.';
+    // }
     cout<<s<<endl;
 }
 int main(){
