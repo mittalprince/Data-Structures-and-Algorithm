@@ -4,6 +4,8 @@ input.txt
 output.txt
 .DS_Store
 /.vscode
-/tail-f/node_modules
-*.classpath
-*/target
+*/node_modules
+.classpath
+.project
+.settings/
+target/
