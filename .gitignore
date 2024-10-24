@@ -10,3 +10,6 @@ output.txt
 .settings/
 target/
 .idea/
+*.iws
+*.iml
+*.ipr
