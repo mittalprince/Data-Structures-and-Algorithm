@@ -5,3 +5,5 @@ output.txt
 .DS_Store
 /.vscode
 /tail-f/node_modules
+*.classpath
+*/target
