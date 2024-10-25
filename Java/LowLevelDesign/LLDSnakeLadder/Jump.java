@@ -1,6 +1,8 @@
 package LowLevelDesign.LLDSnakeLadder;
 
-public class Cell {
-    Jump jump;
-    //getters and setters
+public class Jump {
+    int start;
+    int end;
+
+    // getters and setters
 }

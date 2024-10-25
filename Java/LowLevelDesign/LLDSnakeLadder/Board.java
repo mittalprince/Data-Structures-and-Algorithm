@@ -25,7 +25,7 @@ public class Board {
                 continue;
             }
             Jump snakeObj = new Jump();
-            snakeObj.start = snakedHead;
+            snakeObj.start = snakeHead;
             snakeObj.end = snakeTail;
 
             Cell cell = getCell(snakeHead);
