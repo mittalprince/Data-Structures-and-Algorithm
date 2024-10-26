@@ -55,4 +55,7 @@ public class ProviderManager {
         // update the provider attributes
         providers.put(providerId, provider);
     }
+    public boolean checkProviderExist(String providerId){
+        return providers.containsKey(providerId);
+    }
 }

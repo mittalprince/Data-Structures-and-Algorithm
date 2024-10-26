@@ -32,10 +32,7 @@ public abstract class Request {
         return communicationStrategy.sendRequest(this, account);
     }
     public String getSender() { return sender; }
-    public void setSender(String sender) { this.sender = sender; }
     public String getMessage() { return message; }
-    public void setMessage(String message) { this.message = message; }
     public ChannelType getChannel() { return channel; }
-    public void setChannel(ChannelType channel) {this.channel = channel;}
     public boolean isCrtical() {return isCrtical;}
 }

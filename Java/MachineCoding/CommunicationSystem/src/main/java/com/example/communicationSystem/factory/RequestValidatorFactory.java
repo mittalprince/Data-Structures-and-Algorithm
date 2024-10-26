@@ -3,7 +3,6 @@ package com.example.communicationSystem.factory;
 import com.example.communicationSystem.ChannelType;
 import com.example.communicationSystem.strategy.requestValidator.EmailRequestValidator;
 import com.example.communicationSystem.strategy.requestValidator.RequestValidator;
-import com.example.communicationSystem.Constants.Constant;
 import com.example.communicationSystem.strategy.requestValidator.SmsRequestValidator;
 
 public class RequestValidatorFactory {

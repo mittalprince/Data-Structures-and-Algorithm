@@ -21,16 +21,14 @@ public class Provider {
 
     public String getId() {return id;}
     public String getName() {return name;}
-    public void setName(String name) {this.name = name;}
     public List<Account> getAccounts() {return accounts;}
     public void setAccounts(List<Account> accounts) {this.accounts = accounts;}
     public boolean isActive() {return isActive;}
     public void setActive(boolean active) {isActive = active;}
-
     public List<Account> getAccountForChannel(ChannelType channelType, boolean isCritical){
         List<Account> activeAccounts = new ArrayList<>();
         for(Account account: accounts){
-            if(account.isCritical() == isCritical && account.supportsChannel(channelType)){
+            if((isCritical || !account.isCritical()) && account.supportsChannel(channelType)){
                 activeAccounts.add(account);
             }
         }
@@ -40,5 +38,9 @@ public class Provider {
         if(this.getId() == null || this.getName() == null || this.getAccounts() == null){
             throw new Exception("Illegal Arguments, invalid provider");
         }
+    }
+
+    public boolean checkAccountExist(String accountId){
+        return accounts.stream().anyMatch(account -> account.getAccountId().equalsIgnoreCase(accountId));
     }
 }

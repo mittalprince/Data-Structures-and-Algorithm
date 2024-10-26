@@ -3,7 +3,7 @@ import java.util.Map;
 
 public class Account {
     private final String accountId;
-    private final Map<ChannelType, String> apiEndpoints; // Channel -> Endpoint URL
+    private Map<ChannelType, String> apiEndpoints; // Channel -> Endpoint URL
     private final String username;
     private final String password;
     private final boolean isCritical; // account for handling critical request
@@ -40,4 +40,7 @@ public class Account {
     public boolean supportsChannel(ChannelType channelType) {
         return apiEndpoints.containsKey(channelType);
     }
-}
+
+    public void addChannel(ChannelType channelType, String endPoint) {
+        apiEndpoints.put(channelType, endPoint);
+    }}
