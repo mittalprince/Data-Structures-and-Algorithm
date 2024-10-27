@@ -10,6 +10,19 @@ public class Main {
     }
 }
 
+
+/*
+idea
+
+1. Provider -> contain list of account -> account have supported channel with endpoint + auth info
+2. providerManager(singelton) -> add, update get provider + get suported account/providder for current req
+3. Request abstract class -> all comon attr + validate() + sendReq()
+4. ReqValidator + Communication Strategy (can be extended for diff channel type)
+5. EmailReq + SmsReq class -> extends req
+6. Communication Service -> send + process request
+7. Main -> entry point
+*/
+
 /*
 Input
 
