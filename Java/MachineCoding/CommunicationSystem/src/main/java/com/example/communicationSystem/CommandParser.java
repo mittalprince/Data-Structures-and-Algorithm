@@ -56,6 +56,7 @@ public class CommandParser {
             Provider provider = providerManager.getProvider(providerName);
             Account account = provider.getAccounts().get(0);
             account.addChannel(ChannelType.valueOf(channelType), endPoint);
+            p
         } else {
             Map<ChannelType, String> endpoints = new HashMap<>();
             endpoints.put(ChannelType.valueOf(channelType), endPoint);
