@@ -2,7 +2,8 @@ package com.example.paymentGateway.models.entities;
 
 public enum PaymentMode {
     UPI,
-    CREDIT_CARD,
+    CARD,
     DEBIT_CARD,
+    CREDIT_CARD,
     NET_BANKING
 }
