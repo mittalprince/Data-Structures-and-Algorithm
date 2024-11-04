@@ -9,6 +9,8 @@ import com.example.parkinglotSystem.models.vehicle.Vehicle;
 import com.example.parkinglotSystem.services.DisplayService;
 import com.example.parkinglotSystem.services.ParkingService;
 import com.example.parkinglotSystem.strategy.FirstAvailableStrategy;
+import com.example.parkinglotSystem.strategy.PricingStrategy;
+import com.example.parkinglotSystem.strategy.VehicleTypePricingStrategy;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -50,6 +52,8 @@ public class ParkingController {
         VehicleType vehicleType = VehicleType.valueOf(parts[1].toUpperCase());
         String registrationNumber = parts[2];
         String color = parts[3];
+        // can send the price strategy from here
+        PricingStrategy strategy = getPricingStrategy();
         Ticket ticket = parkingService.parkVehicle(vehicleType, registrationNumber, color);
         if(ticket != null)  {
             displayService.displayMessage("Parked vehicle. Ticket ID: " + ticket.getId());
@@ -68,11 +72,13 @@ public class ParkingController {
             displayService.displayMessage("Invalid Ticket");
         }
     }
-
     private void handleDisplay(String[] parts){
         DisplayType displayType = DisplayType.valueOf(parts[1].toUpperCase());
         VehicleType vehicleType = VehicleType.valueOf(parts[2].toUpperCase());
         displayService.display(displayType,vehicleType);
+    }
+    private PricingStrategy getPricingStrategy(){
+        return new VehicleTypePricingStrategy();
     }
 
     private void parseCommand(String command){

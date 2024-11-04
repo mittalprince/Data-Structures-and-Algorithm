@@ -27,6 +27,7 @@ public class Floor {
         for(ParkingSlot slot: slots){
             if(slot.isAvailableForPark(vehicle.getType())){
                 slot.park(vehicle);
+                // pass pricing strategy
                 return generateTicket(parkingLotId, vehicle, slot.getSlotNumber());
             }
         }

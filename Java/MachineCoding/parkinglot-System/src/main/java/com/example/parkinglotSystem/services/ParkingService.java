@@ -5,7 +5,6 @@ import com.example.parkinglotSystem.models.entities.ParkingLot;
 import com.example.parkinglotSystem.models.entities.Ticket;
 import com.example.parkinglotSystem.models.enums.VehicleType;
 import com.example.parkinglotSystem.models.vehicle.Vehicle;
-import com.example.parkinglotSystem.strategy.ParkingStrategy;
 
 public class ParkingService {
     private final ParkingLot parkingLot;
@@ -16,6 +15,7 @@ public class ParkingService {
 
     public Ticket parkVehicle(VehicleType vehicleType, String regNo, String color) throws Exception {
         Vehicle vehicle = VehicleFactory.createVehicle(vehicleType, regNo, color);
+        // pass price strategy
         return parkingLot.parkVehicle(vehicle);
     }
 

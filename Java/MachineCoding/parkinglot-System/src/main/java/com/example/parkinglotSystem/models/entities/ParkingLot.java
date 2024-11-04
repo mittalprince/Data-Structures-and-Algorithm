@@ -41,6 +41,7 @@ public class ParkingLot {
         this.parkingStrategy = strategy;
     }
     public Ticket parkVehicle(Vehicle vehicle){
+        // pass pricing strategy
         return parkingStrategy.park(this, vehicle);
     }
     public void unParkVehicle(Ticket ticket) throws Exception{

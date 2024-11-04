@@ -9,6 +9,7 @@ public class FirstAvailableStrategy implements ParkingStrategy{
     @Override
     public Ticket park(ParkingLot parkingLot, Vehicle vehicle){
         for(Floor floor: parkingLot.getFloors()){
+            // pass pricing strategy
             Ticket ticket = floor.parkVehicle(parkingLot.getId(), vehicle);
             if(ticket != null) return ticket;
         }
