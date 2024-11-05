@@ -4,6 +4,7 @@ import com.example.taskManagementSystem.models.*;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class TaskController {
@@ -36,6 +37,8 @@ public class TaskController {
         return (user != null && user.authenticate(password)) ? user : null;
     }
 
+
+
     public Task createTask(String title, String description, Date deadline, User assignedUser){
         Task task = TaskFactory.createTask(title, description, deadline, assignedUser);
         tasks.put(task.getId(), task);
@@ -57,6 +60,7 @@ public class TaskController {
         stories.put(storyId, story);
         return story;
     }
+
     public void moveTask(String taskId, String newParentId) throws Exception{
         TaskComponent task = getTaskById(taskId);
         TaskComponent parentTask = tasks.get(newParentId);
@@ -108,5 +112,37 @@ public class TaskController {
             throw new Exception("Invalid TaskId, task doesn't exist");
         }
         return task;
+    }
+    public void deleteStory(Story story) throws Exception {
+        String storyId = story.getStoryId();
+        deleteBulkTask(story.getTasks());
+        stories.remove(storyId);
+    }
+    private void deleteBulkTask(List<Task> taskList) throws Exception {
+        for(Task task: taskList){
+            deleteTask(task);
+        }
+    }
+    public void deleteTask(TaskComponent task) throws Exception {
+        TaskComponent t = getTaskById(task.getId());
+        if(t.getParentTaskId().equals("-1")){
+            deleteTaskEntity((Task) task);
+        } else {
+            deleteSubTaskEntity((Subtask) task);
+        }
+    }
+
+    private void deleteTaskEntity(Task task) throws Exception {
+        for(Subtask subtask: task.getSubtasks()){
+            deleteSubTaskEntity(subtask);
+        }
+        tasks.remove(task.getId());
+        User user = task.getAssignedUser();
+        user.removeUserTask(task);
+    }
+    private void deleteSubTaskEntity(Subtask subtask) throws Exception {
+        Task task = (Task) getTaskById(subtask.getParentTaskId());
+        task.removeSubtask(subtask);
+        tasks.remove(subtask.getId());
     }
 }

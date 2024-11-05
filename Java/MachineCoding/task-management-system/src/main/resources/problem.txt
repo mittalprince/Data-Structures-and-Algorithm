@@ -26,3 +26,36 @@ task or story, handling dependencies.
 including tasks and deadlines.
 • [execution time limit] 3 seconds (java)
 • [memory limit] 1 GB
+
+
+Assumption
+Task -> owner
+subtask -> should have same owner
+
+
+
+
+Notes
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
