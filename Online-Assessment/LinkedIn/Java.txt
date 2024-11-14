@@ -1,0 +1,12 @@
+Current project discussion
+Mutex
+Semaphore
+Final
+Final Method
+Final class
+Finally block
+finalize
+Transaction
+ACID
+Hash map -> implementation -> hashcode -> multiple keys same hashcode ? get/put how works
+Heap vs stack memory
