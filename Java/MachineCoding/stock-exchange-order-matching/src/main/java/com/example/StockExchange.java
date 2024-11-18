@@ -9,6 +9,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 
+/*
+PQ insert TC > logn
+Poll top element -> logn
+can be poll whole queue to fil order -> mlogn
+
+assume
+m: Number of orders matched during processing.
+n: Number of orders in the relevant priority queue (buy or sell)
+*/
+
 public class StockExchange {
     private PriorityQueue<Order> buyOrders = new PriorityQueue<>();
     private PriorityQueue<Order> sellOrders = new PriorityQueue<>();
