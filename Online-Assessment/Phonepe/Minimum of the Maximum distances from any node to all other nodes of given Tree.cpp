@@ -60,6 +60,11 @@ Optimised
 find diameter of tree > thats critical part to get this
 https://leetcode.ca/2019-04-28-1245-Tree-Diameter/
 then middle node of diameter will be the ideal node -> do bfs to find min dist
+
+
+https://leetcode.com/problems/minimum-height-trees/
+we can also use same logic to find min of sum of all nodes from one ideal node
+take ideal node as root arr
 */
 
 #include <iostream>
